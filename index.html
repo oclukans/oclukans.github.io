@@ -3,23 +3,35 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Groomtastics | Premier Dog Grooming in Hanover, Canada</title>
-    <meta name="description" content="Groomtastics offers premier, stress-free dog grooming services in Hanover, Canada. Located conveniently at the local mall storefront.">
+    <title>Groomtastics | Premier Dog Grooming</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
-    <link rel="icon" type="image/avif" href="assets/New folder/73cf7268-e2bf-4ef7-b3c7-492fcd3af1e8-Groomtastics-CA-Ontario-Hanover-Fresha.avif">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/avif" href="assets/logo.avif">
+    <!-- CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/@studio-freight/lenis@1.0.34/dist/lenis.min.js"></script>
 </head>
 <body>
 
-    <!-- Navigation -->
+    <!-- Intro Reveal Overlay -->
+    <div class="intro-overlay" id="intro-overlay">
+        <div class="intro-text-wrapper" id="intro-content">
+            <h1 class="intro-name">groomtastics</h1>
+            <div class="intro-subtext">Premium Dog Grooming</div>
+        </div>
+    </div>
+
+    <!-- Main Navigation -->
     <nav class="navbar">
         <div class="nav-container">
-            <a href="#" class="logo-container">
-                <img src="assets/New folder/73cf7268-e2bf-4ef7-b3c7-492fcd3af1e8-Groomtastics-CA-Ontario-Hanover-Fresha.avif" alt="Groomtastics Logo" class="logo">
-                <span class="logo-text">Groomtastics</span>
+            <a href="#home" class="logo-container">
+                <img src="assets/logo.avif" alt="Groomtastics" class="logo">
+                <span class="logo-text">groomtastics</span>
             </a>
             <ul class="nav-links">
                 <li><a href="#about">About</a></li>
@@ -27,162 +39,100 @@
                 <li><a href="#gallery">Gallery</a></li>
                 <li><a href="#contact" class="btn btn-primary btn-nav">Book Now</a></li>
             </ul>
-            <div class="hamburger">
-                <div class="line"></div>
-                <div class="line"></div>
-                <div class="line"></div>
-            </div>
         </div>
     </nav>
 
-    <main>
-        <!-- Hero Section -->
-        <section class="hero" id="home">
-            <div class="hero-content fade-in-up">
-                <h1>Pamper Your Pup in Style.</h1>
-                <p>Experience Hanover's finest, stress-free dog grooming at our convenient mall storefront.</p>
-                <div class="hero-buttons">
-                    <a href="#contact" class="btn btn-primary">Book an Appointment</a>
-                    <a href="#services" class="btn btn-secondary">Our Services</a>
-                </div>
+    <!-- Parallax Hero -->
+    <section class="hero" id="home">
+        <div class="hero-bg-wrapper">
+            <div class="hero-bg"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-info-text">
+                <span class="info-word">INFORMATION</span>
+                <div class="down-arrow"></div>
             </div>
-            <div class="hero-image-wrapper fade-in-up delay-1">
-                <div class="image-backdrop"></div>
-                <img src="assets/New folder/14_dog-grooming-websites.avif" alt="A freshly groomed, happy dog" class="hero-image">
-                <div class="floating-card glassmorphism">
-                    <span class="stars">⭐⭐⭐⭐⭐</span>
-                    <p>"The best cut my doodle has ever had!"</p>
-                </div>
-            </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- About Us Section -->
-        <section class="about" id="about">
-            <div class="section-container">
-                <div class="about-text scroll-reveal">
-                    <h2 class="section-title">Where Dogs Feel at Home</h2>
-                    <p>Located right in the heart of Hanover, Canada, <strong>Groomtastics</strong> is your local, premium mall storefront grooming salon. We believe every dog deserves a spa day that is safe, relaxing, and tailored to their specific coat and personality.</p>
-                    <p>Our experienced groomers use only top-tier, pet-safe products to ensure your furry friend not only looks fantastic but feels incredible too.</p>
-                    <ul class="features-list">
-                        <li>🐾 Cage-free drying options</li>
-                        <li>🌿 Organic & hypoallergenic shampoos</li>
-                        <li>✂️ Breed-standard styling</li>
-                    </ul>
+    <!-- Editorial About Section -->
+    <section class="about" id="about">
+        <div class="section-container">
+            <div class="about-text scroll-fade">
+                <span class="subtitle">Our Space</span>
+                <h2 class="section-title">Where Dogs Feel at Home</h2>
+                <p>Located right in the heart of Hanover, Canada, <strong>groomtastics</strong> is your premium mall storefront grooming salon.</p>
+                <p>Our experienced groomers provide a spa day that is safe, relaxing, and beautifully tailored to your furry friend.</p>
+            </div>
+            <div class="about-visuals">
+                <img src="assets/inside.avif" alt="Inside the salon" class="img-inside">
+                <img src="assets/outside.avif" alt="Outside the salon" class="img-outside">
+            </div>
+        </div>
+    </section>
+
+    <!-- Interactive Auto-Scrolling Gallery -->
+    <section class="gallery-section" id="gallery">
+        <div class="section-header center scroll-fade">
+            <span class="subtitle">Portfolio</span>
+            <h2 class="section-title">Happy Pups</h2>
+        </div>
+        <div class="scroll-container">
+            <div class="scroll-track" id="gallery-track">
+                <!-- Javascript will duplicate images for infinite loop -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Services Section -->
+    <section class="services" id="services">
+        <div class="section-container vertical">
+            <div class="section-header center scroll-fade">
+                <span class="subtitle">Our Offerings</span>
+                <h2 class="section-title">Premium Grooming</h2>
+            </div>
+            <div class="services-grid">
+                <div class="service-card scroll-fade">
+                    <h3>Bath & Brush Out</h3>
+                    <p>Includes premium shampoo, blow dry, thorough brushing, nail trim, and ear cleaning.</p>
+                    <span class="price">From $45</span>
                 </div>
-                <div class="about-visual scroll-reveal delay-1">
-                    <div class="blob-shape"></div>
-                    <img src="assets/New folder/200caf6c-346a-4529-9e13-cc65f9b9e25f-Groomtastics-CA-Ontario-Hanover-Fresha.avif" alt="Dog being washed" class="rounded-image shadow-lg">
+                <div class="service-card scroll-fade">
+                    <h3>The Full Groom</h3>
+                    <p>Everything in the Bath & Brush, plus a customized full-body haircut and styling.</p>
+                    <span class="price">From $75</span>
+                </div>
+                <div class="service-card scroll-fade">
+                    <h3>Spa Upgrades</h3>
+                    <p>Blueberry facials, paw balm treatments, or de-shedding mud baths.</p>
+                    <span class="price">+ $15 each</span>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <!-- Services Section -->
-        <section class="services bg-light" id="services">
-            <div class="section-container vertical">
-                <div class="section-header center scroll-reveal">
-                    <span class="subtitle">Our Offerings</span>
-                    <h2 class="section-title">Premium Grooming Services</h2>
-                    <p>Tailored treatments to keep your pet healthy, clean, and stylish.</p>
-                </div>
-                
-                <div class="services-grid">
-                    <!-- Service 1 -->
-                    <div class="service-card scroll-reveal">
-                        <div class="card-icon">🛁</div>
-                        <h3>Bath & Brush Out</h3>
-                        <p>Perfect for maintaining a healthy coat. Includes premium shampoo, blow dry, thorough brushing, nail trim, and ear cleaning.</p>
-                        <span class="price">From $45</span>
-                    </div>
-                    <!-- Service 2 -->
-                    <div class="service-card scroll-reveal delay-1">
-                        <div class="card-icon">✂️</div>
-                        <h3>The Full Groom</h3>
-                        <p>Our signature service. Everything in the Bath & Brush, plus a customized full-body haircut and styling to your preference.</p>
-                        <span class="price">From $75</span>
-                    </div>
-                    <!-- Service 3 -->
-                    <div class="service-card scroll-reveal delay-2">
-                        <div class="card-icon">✨</div>
-                        <h3>Spa Upgrades</h3>
-                        <p>Spoil them with extras: Blueberry facials, paw balm treatments, teeth brushing, or de-shedding mud baths.</p>
-                        <span class="price">+ $15 each</span>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Gallery Section -->
-        <section class="gallery" id="gallery">
-            <div class="section-container vertical">
-                <div class="section-header center scroll-reveal">
-                    <span class="subtitle">Our Portfolio</span>
-                    <h2 class="section-title">Happy Pups</h2>
-                    <p>Take a look at some of our favorite makeovers.</p>
-                </div>
-                <div class="gallery-grid scroll-reveal delay-1">
-                    <div class="gallery-item"><img src="assets/New folder/6457a2ea-dafe-429f-8069-0f16abac4d70.avif" alt="Gallery dog"></div>
-                    <div class="gallery-item"><img src="assets/New folder/6ed12b11-8e3c-4132-8518-8259a171f2de-Groomtastics-CA-Ontario-Hanover-Fresha.avif" alt="Gallery dog"></div>
-                    <div class="gallery-item"><img src="assets/New folder/9bf8b7ec-e513-4e01-a05e-e9bc3bd39540.avif" alt="Gallery dog"></div>
-                    <div class="gallery-item"><img src="assets/New folder/aa2b3af1-75f0-43aa-bcad-c7c88d7eccd6.avif" alt="Gallery dog"></div>
-                    <div class="gallery-item"><img src="assets/New folder/37818e7b-c8c9-4726-86e5-d930d7414f9e-Groomtastics-CA-Ontario-Hanover-Fresha.avif" alt="Gallery dog"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- Call to Action Banner -->
-        <section class="cta-banner parallax">
-            <div class="cta-content scroll-reveal">
-                <h2>Ready for a Groomtastic Transformation?</h2>
-                <p>Appointments fill up fast. Secure your spot at our Hanover mall location today.</p>
-                <a href="#contact" class="btn btn-primary btn-large">Schedule Now</a>
-            </div>
-        </section>
-    </main>
-
-    <!-- Footer / Contact -->
+    <!-- Footer -->
     <footer id="contact">
         <div class="footer-container">
             <div class="footer-brand">
-                <a href="#" class="logo-container">
-                    <img src="assets/New folder/73cf7268-e2bf-4ef7-b3c7-492fcd3af1e8-Groomtastics-CA-Ontario-Hanover-Fresha.avif" alt="Groomtastics Logo" class="logo">
-                    <span class="logo-text">Groomtastics</span>
+                <a href="#home" class="logo-container">
+                    <img src="assets/logo.avif" alt="Groomtastics Logo" class="logo">
+                    <span class="logo-text">groomtastics</span>
                 </a>
-                <p>Your local dog grooming experts in Hanover, Canada. Bringing style and comfort to every pup.</p>
-                <div class="socials">
-                    <a href="#" aria-label="Facebook">FB</a>
-                    <a href="#" aria-label="Instagram">IG</a>
-                </div>
+                <p>Your local dog grooming experts in Hanover, Canada.</p>
             </div>
-            
-            <div class="footer-links">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#services">Services</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                </ul>
-            </div>
-
             <div class="footer-contact">
                 <h4>Visit Us</h4>
                 <p>📍 The Local Mall Storefront<br>Hanover, ON, Canada</p>
                 <p>📞 (555) 123-4567</p>
-                <p>✉️ hello@groomtastics.ca</p>
-            </div>
-            
-            <div class="footer-hours">
-                <h4>Hours</h4>
-                <p>Mon - Fri: 9:00 AM - 6:00 PM</p>
-                <p>Saturday: 10:00 AM - 4:00 PM</p>
-                <p>Sunday: Closed</p>
             </div>
         </div>
         <div class="footer-bottom">
-            <p>&copy; 2026 Groomtastics. All rights reserved.</p>
+            <p>&copy; 2026 groomtastics. All rights reserved.</p>
         </div>
     </footer>
 
+    <!-- Script -->
     <script src="script.js"></script>
 </body>
 </html>

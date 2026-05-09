@@ -1,83 +1,139 @@
 // script.js
 
-document.addEventListener('DOMContentLoaded', () => {
+// Ensure GSAP plugins are registered
+gsap.registerPlugin(ScrollTrigger);
 
-    // 1. Navbar Scroll Effect
-    const navbar = document.querySelector('.navbar');
-    window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
-            navbar.classList.add('scrolled');
-        } else {
-            navbar.classList.remove('scrolled');
+// 1. Initialize Lenis (Smooth Scroll)
+const lenis = new Lenis({
+    duration: 1.2,
+    easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+    direction: 'vertical',
+    gestureDirection: 'vertical',
+    smooth: true,
+    mouseMultiplier: 1,
+    smoothTouch: false,
+    touchMultiplier: 2,
+    infinite: false,
+});
+
+// Connect Lenis to GSAP ScrollTrigger
+lenis.on('scroll', ScrollTrigger.update);
+gsap.ticker.add((time) => { lenis.raf(time * 1000) });
+gsap.ticker.lagSmoothing(0);
+
+window.addEventListener('load', () => {
+    
+    // 2. Elegant Intro Reveal
+    const tl = gsap.timeline();
+    
+    tl.to("#intro-content", {
+        duration: 1.5,
+        opacity: 1,
+        y: 0,
+        ease: "power3.out"
+    })
+    .to({}, { duration: 0.8 }) // Pause
+    .to("#intro-overlay", {
+        duration: 1.5,
+        opacity: 0,
+        ease: "power2.inOut",
+        onComplete: () => {
+            document.getElementById('intro-overlay').style.display = 'none';
         }
     });
 
-    // 2. Mobile Menu Toggle
-    const hamburger = document.querySelector('.hamburger');
-    const navLinks = document.querySelector('.nav-links');
+    // 3. Parallax Hero Background
+    gsap.to(".hero-bg", {
+        yPercent: 30, // Move down slightly as user scrolls down
+        ease: "none",
+        scrollTrigger: {
+            trigger: ".hero",
+            start: "top top",
+            end: "bottom top",
+            scrub: true
+        }
+    });
 
-    if (hamburger) {
-        hamburger.addEventListener('click', () => {
-            navLinks.classList.toggle('active');
-            
-            // Simple animation for hamburger
-            hamburger.classList.toggle('active');
-        });
-    }
+    // 4. Sticky Navbar Color Change
+    const navbar = document.querySelector('.navbar');
+    ScrollTrigger.create({
+        trigger: ".hero",
+        start: "bottom top",
+        onEnter: () => navbar.classList.add("scrolled"),
+        onLeaveBack: () => navbar.classList.remove("scrolled")
+    });
 
-    // Close mobile menu when a link is clicked
-    const navItems = document.querySelectorAll('.nav-links a');
-    navItems.forEach(item => {
-        item.addEventListener('click', () => {
-            if (navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
+    // 5. Populate Interactive Gallery (Seamless Loop)
+    const galleryTrack = document.getElementById('gallery-track');
+    const images = ['baby_pie.avif', 'cutie_pie.avif', 'dog_paw.avif', 'golden_retriever.avif'];
+    
+    // Duplicate array to ensure seamless infinite looping
+    const displayList = [...images, ...images, ...images, ...images, ...images]; 
+    
+    displayList.forEach(filename => {
+        const img = document.createElement('img');
+        img.src = `assets/${filename}`;
+        img.className = 'interactive-img';
+        galleryTrack.appendChild(img);
+    });
+
+    // Animate the gallery track endlessly
+    // We move it left by enough width to look infinite.
+    // 5 arrays of 4 images = 20 images. Moving it left endlessly.
+    gsap.to(".scroll-track", {
+        xPercent: -50,
+        ease: "none",
+        duration: 50,
+        repeat: -1
+    });
+
+    // 6. Editorial About Section Scroll Reveal
+    gsap.from(".img-inside", {
+        x: 100,
+        opacity: 0,
+        rotation: 5,
+        duration: 1.5,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".about",
+            start: "top 70%",
+        }
+    });
+    
+    gsap.from(".img-outside", {
+        x: -100,
+        opacity: 0,
+        rotation: -5,
+        duration: 1.5,
+        delay: 0.2,
+        ease: "power3.out",
+        scrollTrigger: {
+            trigger: ".about",
+            start: "top 70%",
+        }
+    });
+
+    // Generic Scroll Fade
+    gsap.utils.toArray('.scroll-fade').forEach(el => {
+        gsap.from(el, {
+            y: 50,
+            opacity: 0,
+            duration: 1.2,
+            ease: "power3.out",
+            scrollTrigger: {
+                trigger: el,
+                start: "top 85%",
             }
         });
     });
 
-    // 3. Scroll Reveal Animations (Intersection Observer)
-    const revealElements = document.querySelectorAll('.scroll-reveal');
-
-    const revealOptions = {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px 0px"
-    };
-
-    const revealOnScroll = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) {
-                return;
-            } else {
-                entry.target.classList.add('visible');
-                observer.unobserve(entry.target); // Stop observing once revealed
-            }
-        });
-    }, revealOptions);
-
-    revealElements.forEach(el => {
-        revealOnScroll.observe(el);
-    });
-
-    // 4. Smooth Scrolling for Anchor Links (fallback/enhancement)
+    // Smooth Scrolling for anchor links using Lenis
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
-            
             if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.scrollY - headerOffset;
-  
-                window.scrollTo({
-                     top: offsetPosition,
-                     behavior: "smooth"
-                });
-            }
+            lenis.scrollTo(targetId, { offset: -100 });
         });
     });
-
 });
