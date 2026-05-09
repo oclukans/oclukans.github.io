@@ -3,15 +3,15 @@
    ========================================= */
    :root {
     /* Colors */
-    --clr-primary: #ff8fa3;      /* Soft Pink */
-    --clr-primary-dark: #ff4d6d; /* Deep Pink */
-    --clr-secondary: #003049;    /* Navy Blue */
-    --clr-accent: #fdf0d5;       /* Warm Cream */
+    --clr-primary: #8A4FFF;      /* Vibrant Purple */
+    --clr-primary-dark: #6A2EED; /* Deep Purple */
+    --clr-secondary: #333333;    /* Dark Charcoal */
+    --clr-accent: #F3E8FF;       /* Light Lavender Accent */
     
     --clr-text-main: #2b2d42;
     --clr-text-muted: #6c757d;
     --clr-bg-main: #ffffff;
-    --clr-bg-light: #f8f9fa;
+    --clr-bg-light: #F8F0FF;     /* Soft Lavender Background */
     
     /* Typography */
     --font-primary: 'Outfit', sans-serif;
@@ -100,13 +100,13 @@ img {
 .btn-primary {
     background-color: var(--clr-primary);
     color: white;
-    box-shadow: 0 4px 15px rgba(255, 143, 163, 0.4);
+    box-shadow: 0 4px 15px rgba(138, 79, 255, 0.4);
 }
 
 .btn-primary:hover {
     background-color: var(--clr-primary-dark);
     transform: translateY(-3px);
-    box-shadow: 0 8px 25px rgba(255, 77, 109, 0.5);
+    box-shadow: 0 8px 25px rgba(106, 46, 237, 0.5);
 }
 
 .btn-secondary {
@@ -483,7 +483,7 @@ img {
    ========================================= */
 .cta-banner {
     padding: 6rem 2rem;
-    background: linear-gradient(rgba(0, 48, 73, 0.8), rgba(0, 48, 73, 0.9)), url('https://images.unsplash.com/photo-1583337130417-3346a1be7dee?q=80&w=2068&auto=format&fit=crop') center/cover fixed;
+    background: linear-gradient(rgba(51, 51, 51, 0.8), rgba(51, 51, 51, 0.9)), url('assets/New folder/c3ff2d52-c643-4871-a896-93913a79ce04.avif') center/cover fixed;
     text-align: center;
     color: white;
 }
@@ -683,4 +683,44 @@ footer {
     .socials {
         justify-content: center;
     }
+}
+
+/* =========================================
+   Gallery Section
+   ========================================= */
+.gallery {
+    padding: var(--section-pad);
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-top: 3rem;
+}
+
+.gallery-item {
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    position: relative;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+    cursor: pointer;
+    aspect-ratio: 1 / 1;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: var(--transition);
+}
+
+.gallery-item:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
 }
